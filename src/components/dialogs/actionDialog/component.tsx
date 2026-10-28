@@ -18,6 +18,10 @@ import {
 } from "../../../utils/common";
 
 import BookModel from "../../../models/Book";
+import {
+  exportBookAnnotations,
+  importBookAnnotations,
+} from "../../../utils/file/bookAnnotations";
 
 export interface ActionDialogProps {
   book: BookModel;
@@ -402,6 +406,34 @@ const ActionDialog = (
               style={{ left: "95px" }}
             ></span>
           </div>
+          {!isCollection && (
+            <>
+              <div
+                className="action-dialog-edit"
+                onClick={async () => {
+                  handleActionDialog(false);
+                  await exportBookAnnotations(currentBook);
+                }}
+              >
+                <span className="icon-export view-icon"></span>
+                <p className="action-name">
+                  <Trans>Export notes of this book</Trans>
+                </p>
+              </div>
+              <div
+                className="action-dialog-edit"
+                onClick={async () => {
+                  handleActionDialog(false);
+                  await importBookAnnotations(currentBook);
+                }}
+              >
+                <span className="icon-import view-icon"></span>
+                <p className="action-name">
+                  <Trans>Import notes of this book</Trans>
+                </p>
+              </div>
+            </>
+          )}
           <div
             className="action-dialog-edit"
             onClick={() => {
